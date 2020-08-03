@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InsertRecordMvcCore", "InsertRecordMvcCore\InsertRecordMvcCore.csproj", "{2985B00B-15DE-4993-8DF4-C1804A40854E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2985B00B-15DE-4993-8DF4-C1804A40854E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2985B00B-15DE-4993-8DF4-C1804A40854E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2985B00B-15DE-4993-8DF4-C1804A40854E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2985B00B-15DE-4993-8DF4-C1804A40854E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {700CFC3A-0A8D-4187-A417-61203AD2CAA3}
+	EndGlobalSection
+EndGlobal
