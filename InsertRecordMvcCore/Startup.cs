@@ -53,7 +53,7 @@ namespace InsertRecordMvcCore
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=InsertUser}/{action=Create}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
