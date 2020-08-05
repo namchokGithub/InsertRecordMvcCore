@@ -23,5 +23,6 @@ namespace InsertRecordMvcCore.Models
         {
             get; set;
         }
+
     }
 }

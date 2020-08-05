@@ -25,12 +25,10 @@ namespace InsertRecordMvcCore.Controllers
         public IActionResult Index()
         {
             string connectionstring = configuration.GetConnectionString("DefaultConnect");
+            string sql = "Select ID, Username, Password from account";
 
             SqlConnection connection = new SqlConnection(connectionstring);
-
             connection.Open();
-
-            string sql = "Select ID, Username, Password from account";
 
             SqlCommand cmSelect = new SqlCommand(sql, connection);
             var user = cmSelect.ExecuteReader();

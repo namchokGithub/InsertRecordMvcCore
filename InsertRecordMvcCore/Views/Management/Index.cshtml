@@ -1,14 +1,23 @@
-﻿@model IEnumerable<InsertRecordMvcCore.Models.AccountClass>
+﻿@*
+    Namespace: Views/Management
+    File: Index.cshtml
+    Author: Namchok
+*@
+
+@model IEnumerable<InsertRecordMvcCore.Models.AccountClass>
 
 @{
     ViewData["Title"] = "Management";
     Layout = "~/Views/AdminLTE/_Layout.cshtml";
 }
 
+@Html.AntiForgeryToken()
+
 <h1>Management</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    @Html.ActionLink("Add User", "Create", "InsertUser", new { }, new { @class = "btn btn-info" })
+    @* or <a asp-controller="InsertUser" asp-action="Create">Create New</a>*@
 </p>
 <table class="table">
     <thead>
@@ -26,23 +35,24 @@
         </tr>
     </thead>
     <tbody>
-    @foreach (var item in ViewData["User"] as List<AccountClass>) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Username)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-    }
+        @foreach (var item in ViewData["User"] as List<AccountClass>)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Username)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", "InsertUser", new { id = item.ID }, new { @class = "text-white btn btn-warning" })
+                    @Html.ActionLink("Details", "Details", "Details", new { id = item.ID }, new { @class = "btn btn-info" })
+                    @Html.ActionLink("Delete", "Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
