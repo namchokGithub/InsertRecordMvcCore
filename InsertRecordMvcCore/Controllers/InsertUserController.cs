@@ -55,18 +55,13 @@ namespace InsertRecordMvcCore.Controllers
 
         [HttpPost]
         public IActionResult EditUser(AccountClass ac)
-        {
-            AccountClass account = _cc.Find<AccountClass>(ac.ID);
-
+        { 
             if (ModelState.IsValid)
             { 
-                //_cc.Update<AccountClass>(new AccountClass { 
-                //    ID = account.ID
-                //    ,Username = account.Username
-                //    ,Password = account.Password
-                //});
+                _cc.Update(ac);
+                _cc.SaveChanges();
             }
-            return RedirectToAction("Edit", "InsertUser", new { id = account.ID });
+            return RedirectToAction("Index", "Management", null);
         }
     }
 }
