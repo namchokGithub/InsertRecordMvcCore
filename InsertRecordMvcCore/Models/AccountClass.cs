@@ -10,7 +10,6 @@ using System.Threading.Tasks;
  * Author: Namchok
  */
 
-
 namespace InsertRecordMvcCore.Models
 {
     public class AccountClass
@@ -19,7 +18,7 @@ namespace InsertRecordMvcCore.Models
         public int ID { get; set; }
 
         [Required]
-        public String Username { get; set; }
+        public String Username { get; set; }    
 
         [Required]
         public String Password { get; set; }

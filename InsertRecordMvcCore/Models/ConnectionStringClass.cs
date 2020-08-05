@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+/*
+ * Namespace: InsertRecordMvcCore
+ * Name class: ConnectionStringClass
+ * Author: Namchok
+ */
+
 namespace InsertRecordMvcCore.Models
 {
     public class ConnectionStringClass : DbContext
