@@ -49,10 +49,30 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-warning" })
-                    @Html.ActionLink("Details", "Details", "Details", new { id = item.acc_Id }, new { @class = "btn btn-info" })
-                    @Html.ActionLink("Delete", "Delete", "Delete", new { id = item.acc_Id }, new { @class = "btn btn-danger" })
+                    <a class="btn btn-danger text-white" id="deleteUser" >Delete</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+<script>
+    $('#deleteUser').click(function (e) {
+       Swal.fire({
+          icon: 'success',
+          title: 'Your work has been saved',
+          showConfirmButton: false,
+          timer: 1500
+       })
+       swal("Please enter OrderCode !"); 
+    });
+
+    function confirmDeleteUser() {
+        Swal.fire({
+            icon: 'success',
+            title: 'Your work has been saved',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    }
+</script>
