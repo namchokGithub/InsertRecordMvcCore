@@ -39,6 +39,6 @@ namespace InsertRecordMvcCore.Models
         public int acc_ro_Id { get; set; } // Foreign key ของตางราง Role
 
         [Required]
-        public String acc_ta_Id { get; set; } // Foreign key ของตางราง Type_Account
+        public int acc_ta_Id { get; set; } // Foreign key ของตางราง Type_Account
     }
 }

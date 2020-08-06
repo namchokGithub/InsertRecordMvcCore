@@ -41,7 +41,7 @@ namespace InsertRecordMvcCore.Controllers
         {
             _cc.Add(ac);
             _cc.SaveChanges();
-            ViewBag.message = "The record " + ac.Username + " is saved Successfully!";
+            ViewBag.message = "The record " + ac.acc_firstname + " is saved Successfully!";
             return View();
         }
 

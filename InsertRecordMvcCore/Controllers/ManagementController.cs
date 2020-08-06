@@ -25,7 +25,8 @@ namespace InsertRecordMvcCore.Controllers
         public IActionResult Index()
         {
             string connectionstring = configuration.GetConnectionString("DefaultConnect");
-            string sql = "Select ID, Username, Password from account";
+            string sql = "Select acc_Id, acc_user, acc_password, acc_firstname, acc_lastname" +
+                "from account";
 
             SqlConnection connection = new SqlConnection(connectionstring);
             connection.Open();
@@ -41,9 +42,10 @@ namespace InsertRecordMvcCore.Controllers
                 userlist.Add(
                     new Models.AccountClass()
                     {
-                        ID = (int)user["ID"],
-                        Username = user["Username"].ToString(),
-                        Password = user["Password"].ToString()
+                        acc_Id = (int)user["acc_Id"],
+                        acc_user = user["acc_user"].ToString(),
+                        acc_firstname = user["acc_firstname"].ToString(),
+                        acc_lastname = user["acc_lastname"].ToString()
                     }
                 );
 
