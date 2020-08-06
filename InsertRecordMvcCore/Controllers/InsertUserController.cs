@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
+/*
+ * Namespace: InsertRecordMvcCore
+ * Class: IncsertUserController
+ * Author: Namchok
+ */
 namespace InsertRecordMvcCore.Controllers
 {
 
