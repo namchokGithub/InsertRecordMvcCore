@@ -18,7 +18,7 @@ namespace InsertRecordMvcCore.Models
         public int acc_Id { get; set; }
 
         [Required]
-        public String acc_Firstname { get; set; }   // ชื่อจริง 
+        public String acc_firstname { get; set; }   // ชื่อจริง 
 
         [Required]
         public String acc_lastname { get; set; }    // นามสกุล
