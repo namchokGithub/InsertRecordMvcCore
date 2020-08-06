@@ -9,51 +9,56 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
+using InsertRecordMvcCore.Models;
 
 namespace InsertRecordMvcCore.Controllers
 {
     public class ManagementController : Controller
     {
-
+        private readonly ConnectionStringClass _cc;
         private readonly IConfiguration configuration;
 
-        public ManagementController(IConfiguration config)
+        public ManagementController(ConnectionStringClass cc, IConfiguration config)
         {
+            this._cc = cc;
             this.configuration = config;
         }
 
         public IActionResult Index()
         {
-            string connectionstring = configuration.GetConnectionString("DefaultConnect");
-            string sql = "Select acc_Id, acc_user, acc_password, acc_firstname, acc_lastname" +
-                "from account";
 
-            SqlConnection connection = new SqlConnection(connectionstring);
-            connection.Open();
+            List<AccountClass> userlist = _cc.Account.ToList<AccountClass>();
 
-            SqlCommand cmSelect = new SqlCommand(sql, connection);
-            var user = cmSelect.ExecuteReader();
+            //string connectionstring = configuration.GetConnectionString("DefaultConnect");
+            //string sql = "Select acc_Id, acc_user, acc_password, acc_firstname, acc_lastname" +
+            //    "from account";
 
-            List<Models.AccountClass> userlist = new List<Models.AccountClass>();
+            //SqlConnection connection = new SqlConnection(connectionstring);
+            //connection.Open();
 
-            while (user.Read())
-            {
+            //SqlCommand cmSelect = new SqlCommand(sql, connection);
+            //var user = cmSelect.ExecuteReader();
 
-                userlist.Add(
-                    new Models.AccountClass()
-                    {
-                        acc_Id = (int)user["acc_Id"],
-                        acc_user = user["acc_user"].ToString(),
-                        acc_firstname = user["acc_firstname"].ToString(),
-                        acc_lastname = user["acc_lastname"].ToString()
-                    }
-                );
+            //List<Models.AccountClass> userlist = new List<Models.AccountClass>();
 
-            }
+            //while (user.Read())
+            //{
 
+            //    userlist.Add(
+            //        new Models.AccountClass()
+            //        {
+            //            acc_Id = (int)user["acc_Id"],
+            //            acc_user = user["acc_user"].ToString(),
+            //            acc_firstname = user["acc_firstname"].ToString(),
+            //            acc_lastname = user["acc_lastname"].ToString()
+            //        }
+            //    );
+
+            //}
+
+
+            //connection.Close();
             ViewData["user"] = userlist;
-
-            connection.Close();
 
             return View();
         }

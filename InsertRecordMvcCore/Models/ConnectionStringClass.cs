@@ -19,22 +19,10 @@ namespace InsertRecordMvcCore.Models
 
         }
 
-        public DbSet<AccountClass> Account
-        {
-            get; set;
-        }
-        public DbSet<LogClass> Log
-        {
-            get; set;
-        }
-        public DbSet<RoleClass> Role
-        {
-            get; set;
-        }
-        public DbSet<TypeAccountClass> Type_Account
-        {
-            get; set;
-        }
+        public DbSet<AccountClass> Account { get; set; }
+        public DbSet<LogClass> Log{get; set; }
+        public DbSet<RoleClass> Role{get; set; }
+        public DbSet<TypeAccountClass> Type_Account{ get; set; }
 
         // เพิ่ม Table อื่น ๆ
 
