@@ -14,7 +14,7 @@ namespace InsertRecordMvcCore.Models
 {
     public class ConnectionStringClass : DbContext
     {
-        public ConnectionStringClass(DbContextOptions<ConnectionStringClass> option): base(option)
+        public ConnectionStringClass(DbContextOptions<ConnectionStringClass> option) : base(option)
         {
 
         }
@@ -23,6 +23,8 @@ namespace InsertRecordMvcCore.Models
         {
             get; set;
         }
+
+        // เพิ่ม Table อื่น ๆ
 
     }
 }
