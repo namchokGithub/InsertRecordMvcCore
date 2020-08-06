@@ -33,7 +33,7 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="tableUser">
         @foreach (var item in ViewData["User"] as List<AccountClass>)
         {
             <tr>
@@ -48,7 +48,10 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-warning" })
-                    <a class="btn btn-danger text-white" id="deleteUser" >Delete</a>
+                    <a class="btn btn-danger text-white" id="deleteUser" >
+                        Delete
+                        <input type="hidden" value="@item.acc_Id" />
+                    </a>
                 </td>
             </tr>
         }
@@ -56,40 +59,74 @@
 </table>
 
 <script>
-    $('#deleteUser').click(function (e) {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: 'btn btn-success ml-2',
-                cancelButton: 'btn btn-danger'
-            },
-            buttonsStyling: false
-        })
 
-        swalWithBootstrapButtons.fire({
-            title: 'Are you sure?',
-            text: "Do you want to delete this account?",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No',
-            reverseButtons: true
-        }).then((result) => {
-            if (result.value) {
-                swalWithBootstrapButtons.fire(
-                    'Deleted!',
-                    '',
-                    'success'
-                )
-            } else if (
-                /* Read more about handling dismissals below */
-                result.dismiss === Swal.DismissReason.cancel
-            ) {
-                swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    '',
-                    'error'
-                )
-            }
-        })
+    $(document).ready(function () {
+
+        function deleteUser(id) {
+            $.ajax({
+                url: "~/Controller/InsertController/deleteUser",
+                method: "POST"
+                , data: id
+                , success: function (data) {
+                    console.log(data)
+                    swal("Good job!", "You clicked the button!", "success");
+                }
+            });
+        }
+
+        $(document).on("click", "#deleteUser", function (e) {
+
+            let idUser = $(this).find("input").val();
+            @*console.log(idUser)*@
+
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: 'btn btn-success ml-2',
+                    cancelButton: 'btn btn-danger'
+                },
+                buttonsStyling: false
+            })
+
+            swalWithBootstrapButtons.fire({
+                title: 'Are you sure?',
+                text: "Do you want to delete  account?",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+                cancelButtonText: 'No',
+                reverseButtons: true
+            }).then((result) => {
+                if (result.value) {
+
+                    $.ajax({
+                        url: "InsertUser/deleteUser",
+                        method: "POST"
+                        , data: idUser
+                        , success: function (data) {
+                            console.log(data)
+                            swal("Good job!", "You clicked the button!", "success");
+                        }, error: function (result) {
+                            console.log(result)
+                        }
+                    });
+
+                    swalWithBootstrapButtons.fire(
+                        'Deleted!',
+                        '',
+                        'success'
+                    )
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        '',
+                        'error'
+                    )
+                }
+            })
+        });
     });
+
 </script>

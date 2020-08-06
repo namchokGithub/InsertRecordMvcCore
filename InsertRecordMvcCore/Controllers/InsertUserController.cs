@@ -71,9 +71,12 @@ namespace InsertRecordMvcCore.Controllers
 
         // Just change permission for website
         [HttpPost]
-        public IActionResult DeleteUser(AccountClass ac)
+        public IActionResult deleteUser(AccountClass ac)
         {
-            var account = new AccountClass
+
+            ac = _cc.Find<AccountClass>(ac.acc_Id);
+
+            AccountClass account = new AccountClass
             {
                 acc_Id = ac.acc_Id
                 ,acc_firstname = ac.acc_firstname
