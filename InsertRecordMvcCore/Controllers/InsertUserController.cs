@@ -68,33 +68,5 @@ namespace InsertRecordMvcCore.Controllers
             }
             return RedirectToAction("Index", "Management", null);
         }
-
-        // Just change permission for website
-        [HttpPost]
-        public IActionResult deleteUser(AccountClass ac)
-        {
-
-            ac = _cc.Find<AccountClass>(ac.acc_Id);
-
-            AccountClass account = new AccountClass
-            {
-                acc_Id = ac.acc_Id
-                ,acc_firstname = ac.acc_firstname
-                ,acc_lastname = ac.acc_lastname
-                ,acc_user = ac.acc_user
-                ,acc_password = ac.acc_password
-                ,acc_IsChangePassword = ac.acc_IsChangePassword
-                ,acc_IsActive = 'N'
-                ,acc_ro_Id = ac.acc_ro_Id
-                ,acc_ta_Id = ac.acc_ta_Id
-            };
-
-            if (ModelState.IsValid)
-            {
-                _cc.Update(account);
-                _cc.SaveChanges();
-            }
-            return RedirectToAction("Index", "Management", null);
-        }
     }
 }

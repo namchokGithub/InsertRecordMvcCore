@@ -8,6 +8,8 @@
 @{
     ViewData["Title"] = "Management";
     Layout = "~/Views/AdminLTE/_Layout.cshtml";
+
+    var accViewdata;
 }
 
 @Html.AntiForgeryToken()
@@ -15,7 +17,7 @@
 <h1>Management</h1>
 
 <p>
-    @Html.ActionLink("Add User", "Create", "InsertUser", new { }, new { @class = "btn btn-info" })
+    @Html.ActionLink("Add User", "Create", "InsertUser", null, new { @class = "btn btn-info" })
     @* or <a asp-controller="InsertUser" asp-action="Create">Create New</a>*@
 </p>
 <table class="table">
@@ -37,6 +39,9 @@
         @foreach (var item in ViewData["User"] as List<AccountClass>)
         {
             <tr>
+            @{
+                accViewdata = item;
+            }
                 <td>
                     @Html.DisplayFor(modelItem => item.acc_Id)
                 </td>
@@ -62,22 +67,14 @@
 
     $(document).ready(function () {
 
-        function deleteUser(id) {
-            $.ajax({
-                url: "~/Controller/InsertController/deleteUser",
-                method: "POST"
-                , data: id
-                , success: function (data) {
-                    console.log(data)
-                    swal("Good job!", "You clicked the button!", "success");
-                }
-            });
-        }
+        var account = @accViewdata;
 
+        console.log(account)
+            
         $(document).on("click", "#deleteUser", function (e) {
 
-            let idUser = $(this).find("input").val();
-            @*console.log(idUser)*@
+            let idUser = parseInt($(this).find("input").val());
+            console.log(idUser)
 
             const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
@@ -99,12 +96,12 @@
                 if (result.value) {
 
                     $.ajax({
-                        url: "InsertUser/deleteUser",
-                        method: "POST"
-                        , data: idUser
-                        , success: function (data) {
+                        url: "@Url.Action("deleteUser")",
+                        type: "POST",
+                        dataType: "text",
+                        success: function (data) {
                             console.log(data)
-                            swal("Good job!", "You clicked the button!", "success");
+                            console.log("Good job! You clicked the button! success");
                         }, error: function (result) {
                             console.log(result)
                         }
