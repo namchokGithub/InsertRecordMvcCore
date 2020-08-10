@@ -32,25 +32,5 @@ namespace InsertRecordMvcCore.Controllers
 
             return View();
         }
-
-        // Just change permission for website
-        [HttpDelete]
-        public IActionResult DeleteUser(int id)
-        {
-            try
-            {
-                Console.WriteLine(id);
-                FormattableString sql_query = @$"EXECUTE dbo.ums_SetNonActive {id}";
-                Console.WriteLine(sql_query);
-                _cc.Account.FromSqlInterpolated($"EXECUTE dbo.ums_SetNonActive {id}");
-                _cc.SaveChanges();
-                return RedirectToAction("Index", "Home", null);
-            } 
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return RedirectToAction("Index", "Home", null);
-            }
-        }
     }
 }

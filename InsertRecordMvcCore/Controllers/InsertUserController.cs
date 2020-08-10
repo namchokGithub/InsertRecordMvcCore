@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using InsertRecordMvcCore.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
 /*
@@ -67,6 +68,25 @@ namespace InsertRecordMvcCore.Controllers
                 _cc.SaveChanges();
             }
             return RedirectToAction("Index", "Management", null);
+        }
+
+        // Just change permission for website
+        [HttpGet]
+        public IActionResult DeleteUser(int id)
+        {
+            try
+            {
+                FormattableString sql_query = @$"EXECUTE dbo.ums_SetNonActive {id}";
+                _cc.Database.ExecuteSqlCommand(sql_query);
+                _cc.SaveChanges();
+                // Console.WriteLine(sql_query);
+                return RedirectToAction("Index", "Management", null);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction("Index", "Home", null);
+            }
         }
     }
 }

@@ -52,11 +52,11 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-warning" })
-                    @Html.ActionLink("Delete", "DeleteUser", "Management", new { id = item.acc_Id }, new { @class = "text-white btn btn-danger" })
-                    <a class="btn btn-danger text-white" id="deleteUser">
+                    @Html.ActionLink("Delete", "DeleteUser", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-danger" })
+                    @*<a class="btn btn-danger text-white" id="deleteUser">
                         Delete
                         <input type="hidden" value="@indexItem" />
-                    </a>
+                    </a>*@
                 </td>
             </tr>
         }
@@ -98,7 +98,7 @@
                     $.ajax({
                         url: "@Url.Action("DeleteUser")",
                         data: { ac: idUser },
-                        type: "POST",
+                        type: "Post",
                         dataType: "text",
                         success: function (data) {
                             console.log("Good job! You clicked the button! success");
