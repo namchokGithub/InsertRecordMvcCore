@@ -78,7 +78,6 @@ namespace InsertRecordMvcCore.Controllers
             {
                 FormattableString sql_query = @$"EXECUTE dbo.ums_SetNonActive {id}";
                 _cc.Database.ExecuteSqlCommand(sql_query);
-                _cc.SaveChanges();
                 // Console.WriteLine(sql_query);
                 return RedirectToAction("Index", "Management", null);
             }
