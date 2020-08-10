@@ -4,12 +4,12 @@
     Author: Namchok
 *@
 
+@using InsertRecordMvcCore.Controllers
 @model IEnumerable<InsertRecordMvcCore.Models.AccountClass>
 @{
     ViewData["Title"] = "Management";
     Layout = "~/Views/AdminLTE/_Layout.cshtml";
-
-    var accViewdata = new AccountClass();
+    var indexItem = 0;
 }
 
 @Html.AntiForgeryToken()
@@ -38,6 +38,8 @@
     <tbody id="tableUser">
         @foreach (var item in ViewData["User"] as List<AccountClass>)
         {
+            indexItem++;
+            Console.WriteLine(indexItem);
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.acc_Id)
@@ -50,10 +52,10 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-warning" })
-                    <a class="btn btn-danger text-white" id="deleteUser" >
+                    @Html.ActionLink("Delete", "DeleteUser", "Management", new { id = item.acc_Id }, new { @class = "text-white btn btn-danger" })
+                    <a class="btn btn-danger text-white" id="deleteUser">
                         Delete
-                        <input type="hidden" value="@item.acc_Id" />
-                        <input type="hidden" value="@item" />
+                        <input type="hidden" value="@indexItem" />
                     </a>
                 </td>
             </tr>
@@ -65,20 +67,16 @@
 
     $(document).ready(function () {
 
-
-
         $(document).on("click", "#deleteUser", function (e) {
-            @*var account = @(Newtonsoft.Json.JsonConvert.SerializeObject(accViewdata));
-            console.log(account)*@
 
-            @*let idUser = parseInt($(this).find("input[0]").val());*@
-            let idUser = $(this).find("input")[0].val();
-            console.log(idUser) 
+            @*let idUser = parseInt($(this).find("input").val());*@
 
-            let objAcc = parseInt($(this).find("input")[1].val());
-            console.log(objAcc)
+            var idUser = $(this).find("input").val();
+            
+            @*console.log(idUser)*@
 
-            @*const swalWithBootstrapButtons = Swal.mixin({
+
+            const swalWithBootstrapButtons = Swal.mixin({
                 customClass: {
                     confirmButton: 'btn btn-success ml-2',
                     cancelButton: 'btn btn-danger'
@@ -98,11 +96,11 @@
                 if (result.value) {
 
                     $.ajax({
-                        url: "@Url.Action("deleteUser")",
+                        url: "@Url.Action("DeleteUser")",
+                        data: { ac: idUser },
                         type: "POST",
                         dataType: "text",
                         success: function (data) {
-                            console.log(data)
                             console.log("Good job! You clicked the button! success");
                         }, error: function (result) {
                             console.log(result)
@@ -114,18 +112,16 @@
                         '',
                         'success'
                     )
-                } else if (
-                    /* Read more about handling dismissals below */
-                    result.dismiss === Swal.DismissReason.cancel
-                ) {
+                } else if (result.dismiss === Swal.DismissReason.cancel)
+                {
                     swalWithBootstrapButtons.fire(
                         'Cancelled',
                         '',
                         'error'
                     )
-                }
-            })*@
-        });
-    });
+                } // end If
+            }) // end swal() 
+        }); // end click id deleteUser
+    }); // end document ready
 
 </script>

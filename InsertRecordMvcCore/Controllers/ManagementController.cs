@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using Microsoft.Data.SqlClient;
 using InsertRecordMvcCore.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace InsertRecordMvcCore.Controllers
 {
@@ -26,7 +27,6 @@ namespace InsertRecordMvcCore.Controllers
 
         public IActionResult Index()
         {
-
             List<AccountClass> userlist = _cc.Account.ToList<AccountClass>();
             ViewData["user"] = userlist;
 
@@ -34,22 +34,23 @@ namespace InsertRecordMvcCore.Controllers
         }
 
         // Just change permission for website
-        [HttpPost]
-        public IActionResult deleteUser(AccountClass ac)
+        [HttpDelete]
+        public IActionResult DeleteUser(int id)
         {
-
-            // AccountClass ac = _cc.Find<AccountClass>(id);
-
-            ac.acc_IsActive = 'N';
-
-            if (ModelState.IsValid)
+            try
             {
-                _cc.Update<AccountClass>(ac);
+                Console.WriteLine(id);
+                FormattableString sql_query = @$"EXECUTE dbo.ums_SetNonActive {id}";
+                Console.WriteLine(sql_query);
+                _cc.Account.FromSqlInterpolated($"EXECUTE dbo.ums_SetNonActive {id}");
                 _cc.SaveChanges();
+                return RedirectToAction("Index", "Home", null);
+            } 
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return RedirectToAction("Index", "Home", null);
             }
-      
-
-            return RedirectToAction("Index", "Management", null);
         }
     }
 }
