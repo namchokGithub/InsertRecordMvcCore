@@ -9,7 +9,7 @@
 @{
     ViewData["Title"] = "Management";
     Layout = "~/Views/AdminLTE/_Layout.cshtml";
-    var indexItem = 0;
+    var index = 1;
 }
 
 @Html.AntiForgeryToken()
@@ -38,27 +38,28 @@
     <tbody id="tableUser">
         @foreach (var item in ViewData["User"] as List<AccountClass>)
         {
-            indexItem++;
-            Console.WriteLine(indexItem);
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.acc_Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.acc_firstname)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.acc_user)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-warning" })
-                    @Html.ActionLink("Delete", "DeleteUser", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-danger" })
-                    @*<a class="btn btn-danger text-white" id="deleteUser">
-                        Delete
-                        <input type="hidden" value="@indexItem" />
-                    </a>*@
-                </td>
-            </tr>
+            if (item.acc_IsActive == 'Y')
+            {
+                <tr>
+                    <td>
+                        @index++;
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.acc_firstname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.acc_user)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-warning" })
+                        @Html.ActionLink("Delete", "DeleteUser", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-danger" })
+                        @*<a class="btn btn-danger text-white" id="deleteUser">
+                            Delete
+                            <input type="hidden" value="@indexItem" />
+                        </a>*@
+                    </td>
+                </tr>
+            }
         }
     </tbody>
 </table>
