@@ -26,6 +26,7 @@ namespace InsertRecordMvcCore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ConnectionStringClass>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnect")));
+            
             services.AddControllersWithViews();
         }
 
