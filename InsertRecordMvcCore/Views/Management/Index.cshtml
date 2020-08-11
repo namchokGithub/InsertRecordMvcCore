@@ -42,7 +42,7 @@
             {
                 <tr>
                     <td>
-                        @index++;
+                        @(index++)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.acc_firstname)
@@ -52,11 +52,10 @@
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-warning" })
-                        @Html.ActionLink("Delete", "DeleteUser", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-danger" })
-                        @*<a class="btn btn-danger text-white" id="deleteUser">
-                            Delete
-                            <input type="hidden" value="@indexItem" />
-                        </a>*@
+                        @*@Html.ActionLink("Delete", "DeleteUser", "InsertUser", new { id = item.acc_Id }, new { @class = "text-white btn btn-danger" })*@
+
+                        @Html.ActionLink("Delete", null, null, null, new { @href = "#", @onclick = "confirmDelete(" + item.acc_Id + ")", @class = "text-white btn btn-danger" })
+                        @*<a class="text-white btn btn-danger" onclick="confirmDelete(@item.acc_Id)">Delete</a>*@
                     </td>
                 </tr>
             }
@@ -66,63 +65,57 @@
 
 <script>
 
-    $(document).ready(function () {
+    // for add data of account ot table ID: tableUser
+    function addTableAccount() {}
 
-        $(document).on("click", "#deleteUser", function (e) {
+    // confirm when you delete account but change IsActive from 'Y' to 'N' check in database
+    function confirmDelete(id)
+    {
+        // console.log(id); // show id of account
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success ml-2',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        })
 
-            @*let idUser = parseInt($(this).find("input").val());*@
-
-            var idUser = $(this).find("input").val();
-            
-            @*console.log(idUser)*@
-
-
-            const swalWithBootstrapButtons = Swal.mixin({
-                customClass: {
-                    confirmButton: 'btn btn-success ml-2',
-                    cancelButton: 'btn btn-danger'
-                },
-                buttonsStyling: false
-            })
-
-            swalWithBootstrapButtons.fire({
-                title: 'Are you sure?',
-                text: "Do you want to delete  account?",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-                cancelButtonText: 'No',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-
-                    $.ajax({
-                        url: "@Url.Action("DeleteUser")",
-                        data: { ac: idUser },
-                        type: "Post",
-                        dataType: "text",
-                        success: function (data) {
-                            console.log("Good job! You clicked the button! success");
+        swalWithBootstrapButtons.fire({
+            title: 'Are you sure?',
+            text: "Do you want to delete account?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes',
+            cancelButtonText: 'No',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.value) {
+                $.ajax({
+                    url: "@Url.Action("DeleteUser", "InsertUser")",
+                    data: { id: id },
+                    type: "POST",
+                    dataType: "text",
+                    success: function () {
+                            console.log("Success !!");
                         }, error: function (result) {
-                            console.log(result)
+                            console.log(result.responseText)
                         }
+                    }).done(function () {
+                        swalWithBootstrapButtons.fire('Success !!', '', 'success').then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
                     });
+            } else if (result.dismiss === Swal.DismissReason.cancel)
+            {
+                swalWithBootstrapButtons.fire('Cancelled', '', 'error')
+            } // end If
+        }) // end swalWithBootstrapButtons
+    }
 
-                    swalWithBootstrapButtons.fire(
-                        'Deleted!',
-                        '',
-                        'success'
-                    )
-                } else if (result.dismiss === Swal.DismissReason.cancel)
-                {
-                    swalWithBootstrapButtons.fire(
-                        'Cancelled',
-                        '',
-                        'error'
-                    )
-                } // end If
-            }) // end swal() 
-        }); // end click id deleteUser
+    $(document).ready(function () {
+        // addTableAccount() // load table
     }); // end document ready
 
 </script>

@@ -22,19 +22,19 @@ namespace InsertRecordMvcCore.Models
         [Display(Name="ID")]
         public int acc_Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Please enter first name")]
         [Display(Name="Name")]
         public String acc_firstname { get; set; }   // ชื่อจริง 
 
-        [Required]
+        [Required(ErrorMessage = "Please enter last name")]
         [Display(Name="Lastname")]
         public String acc_lastname { get; set; }    // นามสกุล
 
-        [Required]
+        [Required(ErrorMessage = "Please enter Email or Tel No.")]
         [Display(Name="Username")]
         public String acc_user { get; set; }        // อีเมลหรือเบอร์โทรศัพท์
 
-        [Required]
+        [Required(ErrorMessage = "Please enter Password")]
         [Display(Name="Password")]
         public String acc_password { get; set; }    // รหัสผ่าน
 

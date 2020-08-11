@@ -18,6 +18,7 @@ namespace InsertRecordMvcCore.Controllers
 
     public class InsertUserController : Controller
     {
+        public List<AccountClass> listAccount;
         private readonly ConnectionStringClass _cc;
         private readonly IConfiguration configuration;
 
@@ -71,20 +72,27 @@ namespace InsertRecordMvcCore.Controllers
         }
 
         // Just change permission for website
-        [HttpGet]
-        public IActionResult DeleteUser(int id)
+        [HttpPost]
+        public void DeleteUser(int id)
         {
             try
             {
                 FormattableString sql_query = @$"EXECUTE dbo.ums_SetNonActive {id}";
                 _cc.Database.ExecuteSqlInterpolated(sql_query);
-                return RedirectToAction("Index", "Management", null);
+                //return RedirectToAction("Index", "Home", null);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
-                return RedirectToAction("Index", "Home", null);
+                //return RedirectToAction("Index", "Home", null);
             }
+        }
+
+        [HttpPost]
+        public JsonResult getAllAccount()
+        {
+            listAccount = _cc.Account.ToList<AccountClass>();
+            return new JsonResult(listAccount);
         }
     }
 }
