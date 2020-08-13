@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 namespace InsertRecordMvcCore
-{
+{   
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -49,6 +49,7 @@ namespace InsertRecordMvcCore
             app.UseRouting();
 
             app.UseAuthorization();
+            app.UseAuthentication();
 
             app.UseEndpoints(endpoints =>
             {
